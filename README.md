@@ -1,156 +1,118 @@
-# AzureMaster 104 - Preparação para Certificação AZ-104
+# AzureMaster 104 | Azure Administrator Study App
 
-Aplicação web gamificada para preparação do exame de certificação Microsoft AZ-104 (Azure Administrator).
+**React · Vite · Firebase Authentication · Cloud Firestore · Tailwind CSS**
 
-## 🚀 Funcionalidades
+[English](#english) | [Português](#português)
 
-✅ **Sistema de Gamificação**
-- Sistema de XP e progressão de níveis
-- 6 níveis: Novato Cloud → Especialista AZ-104
-- Barra de progresso visual
-- Persistência de dados com Firebase Firestore
+## English
 
-✅ **Módulos Baseados no Microsoft Learn**
-1. Pré-requisitos para Administradores
-2. Identidades e Governança
-3. Armazenamento
-4. Redes Virtuais
-5. Monitoramento e Backup
+### Overview
 
-✅ **Modos de Estudo**
-- **Modo Estudo**: Feedback imediato com explicações
-- **Modo Simulado**: Resultados mostrados apenas no final
-- Botão "Ver Explicação" sempre disponível
+An independent study application for topics associated with the Microsoft Azure Administrator (AZ-104) exam. It combines a question bank, explanations, study paths and progress tracking in a React interface.
 
-✅ **10 Questões AZ-104**
-- Questões em português brasileiro
-- Formato baseado nos simulados oficiais Microsoft
-- Explicações detalhadas com referências ao Microsoft Learn
-- Nota mínima: 70% para aprovação
+Project by **Leandro Sousa de Jesus** — [LinkedIn](https://www.linkedin.com/in/leandrosousajesus/) · [GitHub](https://github.com/lehsousa).
 
-## 📋 Pré-requisitos
+This is a learning project. It is not an official Microsoft exam simulator, certification, or evidence of an AZ-104 pass.
 
-- Node.js 18+ instalado
-- Conta Firebase (gratuita)
+### Features present in the source
 
-## 🔧 Configuração
+- **300 question entries** across six modules.
+- Study and quiz modes with answer explanations.
+- Timed practice mode and randomized question/answer order.
+- Review of incorrect answers.
+- XP, levels and progress statistics.
+- Email/password and anonymous sign-in flows.
+- User progress stored in Cloud Firestore.
 
-### 1. Instalar Dependências
+The six modules are prerequisites, identity and governance, storage, virtual networking, Azure compute, and monitoring/backup. Questions and explanations are primarily in Brazilian Portuguese. Content should be checked against current Microsoft Learn guidance; no independent question-bank accuracy review is claimed.
+
+### Technology
+
+| Layer | Implementation |
+|---|---|
+| UI | React 19, Tailwind CSS, Lucide icons and Recharts |
+| Build | Vite 7 |
+| Authentication | Firebase Authentication |
+| Progress storage | Cloud Firestore |
+| Hosting configuration | Firebase Hosting serving `dist/` |
+
+The repository contains a web app. Installable/offline PWA support is not established by the current files.
+
+### Local setup
+
+Use Node.js **20.19+ in the 20.x line, or 22.12+**, matching the Vite engine requirement in the lockfile.
 
 ```bash
-npm install
+git clone https://github.com/lehsousa/azuremaster-104.git
+cd azuremaster-104
+npm ci
 ```
 
-### 2. Configurar Firebase
+Before launching a copy:
 
-1. Acesse [Firebase Console](https://console.firebase.google.com/)
-2. Crie um novo projeto
-3. Ative **Authentication** → **Sign-in method** → **Anonymous** (Habilitar)
-4. Ative **Firestore Database** → Criar banco de dados em modo de teste
-5. Copie as credenciais do projeto
+1. Create or select your own Firebase project.
+2. Configure the authentication providers used by the application.
+3. Configure Cloud Firestore with access rules appropriate to authenticated users.
+4. Replace the web-app configuration in `src/firebase.js` with your own project's configuration.
 
-6. Abra o arquivo `src/firebase.js` e substitua pelas suas credenciais:
-
-```javascript
-const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_AUTH_DOMAIN",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_STORAGE_BUCKET",
-  messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-  appId: "SEU_APP_ID"
-};
-```
-
-### 3. Executar Aplicação
+The current configuration is embedded in that file; environment-variable loading is not implemented. Do not assume that a public frontend configuration supplies database access control. Firestore rules are not versioned in this repository, so their live configuration has not been verified here.
 
 ```bash
 npm run dev
+npm run lint
+npm run build
+npm run preview
 ```
 
-Acesse: http://localhost:5173
+These are available commands, not a claim that they passed in the latest environment.
 
-## 🏗️ Tecnologias Utilizadas
+### Main files
 
-- **React 18** - Framework JavaScript
-- **Vite** - Build tool
-- **Firebase v9** - Backend (Auth + Firestore)
-- **Tailwind CSS** - Estilização
-- **Lucide React** - Ícones
+- `src/App.jsx`: app flow, quiz modes, authentication and progress.
+- `src/questions.js`: question bank and shuffle helpers.
+- `src/LearningTrail.jsx`: study paths.
+- `src/ProgressStats.jsx`: progress views.
+- `src/firebase.js`: Firebase setup.
+- `firebase.json`: hosting configuration.
 
-## 📚 Estrutura de Questões
+### Scope and references
 
-Cada questão inclui:
-- Enunciado em português
-- 4 opções de resposta
-- Resposta correta
-- Explicação detalhada
-- Referência ao módulo Microsoft Learn
-- Categoria por módulo
+Practice scores and in-app levels are local gamification rules, not official exam scoring or professional seniority. The app does not demonstrate deployment of Azure infrastructure.
 
-## 🎮 Como Usar
+Use the official [Microsoft Azure Administrator certification page](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/) to check the current exam scope.
 
-1. Ao abrir a aplicação, você será autenticado anonimamente
-2. Escolha um dos 5 módulos disponíveis
-3. Selecione o modo de estudo:
-   - **Modo Estudo**: Veja explicações imediatamente
-   - **Modo Simulado**: Teste seus conhecimentos sem feedback
-4. Responda as questões
-5. Clique em "Ver Explicação" para entender melhor
-6. Ganhe XP por cada resposta correta
-7. Evolua de nível conforme acumula XP
+### License
 
-## 📊 Sistema de Níveis
+MIT, as stated in the original README. A standalone LICENSE file has not yet been included.
 
-| Nível | Nome | XP Necessário |
-|-------|------|---------------|
-| 1 | Novato Cloud | 0 |
-| 2 | Iniciante Azure | 100 |
-| 3 | Administrador Junior | 300 |
-| 4 | Administrador Pleno | 600 |
-| 5 | Administrador Sênior | 1000 |
-| 6 | Especialista AZ-104 | 1500 |
+## Português
 
-## 🔐 Persistência de Dados
+### Visão geral
 
-Os dados do usuário são salvos automaticamente no Firestore:
-- XP acumulado
-- Nível atual
-- Histórico de testes
+Aplicação independente de estudos sobre os temas do exame Microsoft Azure Administrator (AZ-104), combinando questões, explicações, trilhas de aprendizado e acompanhamento de progresso.
 
-**Nota**: Como usa autenticação anônima, limpar os dados do navegador resetará seu progresso.
+Projeto de **Leandro Sousa de Jesus**. É um projeto educacional, sem vínculo oficial com a Microsoft e sem representar certificação ou aprovação no exame.
 
-## 📱 Design Responsivo
+### Funcionalidades
 
-A aplicação é totalmente responsiva e funciona em:
-- Desktop
-- Tablets
-- Smartphones
+- **300 questões cadastradas**, distribuídas em seis módulos.
+- Modos de estudo e questionário, com explicações.
+- Prática cronometrada e embaralhamento de questões e alternativas.
+- Revisão de respostas incorretas.
+- XP, níveis e estatísticas de evolução.
+- Autenticação por e-mail/senha ou anônima.
+- Progresso armazenado no Cloud Firestore.
 
-## 🎨 Tema
+Os módulos abrangem pré-requisitos, identidades e governança, armazenamento, redes virtuais, computação Azure e monitoramento/backup. O conteúdo está principalmente em português brasileiro.
 
-- Cores primárias: Slate & Blue
-- Fonte: Inter (Google Fonts)
-- Gradientes suaves
-- Transições animadas
+### Execução
 
-## 📖 Referências
+Use a versão de Node indicada acima, execute `npm ci` e configure seu próprio projeto no arquivo `src/firebase.js` antes de iniciar com `npm run dev`. Configure autenticação e regras adequadas do Firestore. Essas regras não estão versionadas no repositório.
 
-- [Microsoft Learn - AZ-104](https://learn.microsoft.com/pt-br/credentials/certifications/azure-administrator/)
-- [Documentação Firebase](https://firebase.google.com/docs)
-- [Tailwind CSS](https://tailwindcss.com/)
+Os comandos de lint, build e preview estão disponíveis no projeto; sua listagem não representa uma validação atual de execução.
 
-## 📝 Notas Importantes
+### Tecnologias e limites
 
-⚠️ **Antes de usar**:
-- Configure suas credenciais do Firebase
-- As questões são para estudo e prática
-- Para o exame oficial, consulte o Microsoft Learn
+React 19, Vite 7, Tailwind CSS, Firebase Authentication, Cloud Firestore e Recharts. A configuração de hospedagem utiliza a pasta `dist/`.
 
-## 📄 Licença
-
-MIT
-
----
-
-Desenvolvido com ❤️ para estudantes AZ-104
+O projeto demonstra desenvolvimento de uma ferramenta de aprendizado. Não comprova implantação de infraestrutura Azure, aprovação no AZ-104 ou classificação profissional pelos níveis do aplicativo. O banco de questões deve ser revisado com base no conteúdo atualizado do Microsoft Learn.
